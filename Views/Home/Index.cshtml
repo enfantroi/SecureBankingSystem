@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Secure Banking System</h1>
+    <p class="lead">A demonstration of secure authentication with fraud detection.</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <h5 class="card-title">Secure Authentication</h5>
+                <p class="card-text">Our system implements multi-factor authentication and strong password policies to ensure your account stays secure.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <h5 class="card-title">Fraud Detection</h5>
+                <p class="card-text">Advanced algorithms detect suspicious login attempts based on location, device, and behavior patterns.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <h5 class="card-title">Real-time Alerts</h5>
+                <p class="card-text">Receive instant notifications about suspicious activities on your account.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Get Started</h5>
+                    <p class="card-text">Create an account to experience our secure banking system.</p>
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-primary mx-2">Register</a>
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary mx-2">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

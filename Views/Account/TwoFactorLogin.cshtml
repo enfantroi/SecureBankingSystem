@@ -1,0 +1,47 @@
+﻿@model SecureBankingSystem.ViewModels.TwoFactorViewModel
+
+@{
+    ViewData["Title"] = "Two-Factor Authentication";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Two-Factor Authentication</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <p>A verification code has been sent to your email. Please enter it below to complete login.</p>
+                    @if (ViewBag.OTP != null)
+                    {
+                        <p class="text-danger">Demo: Your code is <strong>@ViewBag.OTP</strong></p>
+                    }
+                </div>
+
+                <form asp-action="TwoFactorLogin" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input asp-for="Email" type="hidden" />
+                    <input asp-for="RememberMe" type="hidden" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="VerificationCode" class="control-label"></label>
+                        <input asp-for="VerificationCode" class="form-control" />
+                        <span asp-validation-for="VerificationCode" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Verify</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

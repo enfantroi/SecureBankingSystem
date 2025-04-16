@@ -1,0 +1,102 @@
+﻿@model IEnumerable<SecureBankingSystem.Models.FraudAlert>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Welcome, @ViewBag.UserName!</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Account Security</h5>
+                        <p>Last login: @(ViewBag.LastLogin?.ToString("g") ?? "First login")</p>
+                        <p>
+                            <a asp-action="SecuritySettings" class="btn btn-outline-primary">
+                                <i class="fas fa-shield-alt"></i> Security Settings
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <h5>Quick Actions</h5>
+                        <form asp-controller="Account" asp-action="Logout" method="post">
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Any())
+{
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow border-warning">
+                <div class="card-header bg-warning">
+                    <h5 class="mb-0">Security Alerts</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date/Time</th>
+                                    <th>Type</th>
+                                    <th>Details</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var alert in Model)
+                                {
+                                    <tr>
+                                        <td>@alert.AlertTime.ToString("g")</td>
+                                        <td>@alert.AlertType</td>
+                                        <td>@alert.AlertDetails</td>
+                                        <td>
+                                            <form asp-action="ResolveFraudAlert" asp-route-alertId="@alert.Id" method="post">
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    Mark as Resolved
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Secure Banking Demo</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <p>This is a demonstration of a secure banking authentication system with fraud detection. Key features:</p>
+                    <ul>
+                        <li>Strong password policies</li>
+                        <li>Two-factor authentication</li>
+                        <li>Suspicious login detection</li>
+                        <li>Geolocation tracking</li>
+                        <li>Fraud alerts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
